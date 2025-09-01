@@ -1,0 +1,17 @@
+openai: 3.0.0.0
+info:
+  title: ping
+  version: 1.0.0
+  description: simple API to test paths
+  paths:
+    /ping:
+      get:
+        summary: Return Pong
+        responses:
+          '200':
+            description: OK
+            content:
+              text/plain:
+                schema:
+                  type: string
+                  example: "pong"
