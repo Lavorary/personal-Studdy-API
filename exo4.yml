@@ -1,0 +1,69 @@
+openapi: 3.1.0
+info:
+  title: Product Search API
+  version: 1.0.0
+  description: API for search product
+paths:
+  /products:
+    get:
+      summary: search product
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/q'
+      responses:
+        '200':
+          description: product list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+              examples:
+                multiple_products:
+                  summary: many products
+                  value:
+                    - name: "Laptop"
+                      expiration_datetime: "2025-12-31T23:59:59Z"
+                      price: 999.99
+                    - name: "Smartphone"
+                      expiration_datetime: "2025-06-30T23:59:59Z"
+                      price: 499.99
+                empty_list:
+                  summary: Liste vide
+                  value: []
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Laptop"
+        expiration_datetime:
+          type: string
+          format: date-time
+          example: "2025-12-31T23:59:59Z"
+        price:
+          type: number
+          format: float
+          example: 999.99
+
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of elements
+      required: false
+      schema:
+        type: integer
+        example: 10
+    q:
+      name: q
+      in: query
+      description: search term
+      required: false
+      schema:
+        type: string
+        example: "laptop"
